@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:task_manager/styles/font.dart';
 
 class CardTask extends StatefulWidget {
   const CardTask({super.key});
@@ -10,26 +11,95 @@ class CardTask extends StatefulWidget {
 }
 
 class _CardTaskState extends State<CardTask> {
+  ValueNotifier<bool> done = ValueNotifier<bool>(false);
+  Color? importance;
+  void teste() {
+    if (done.value == false) {
+      importance = Colors.amber;
+      return;
+    } else {
+      importance = Color.fromARGB(255, 0, 0, 0);
+      return;
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    teste();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.15,
+      width: MediaQuery.of(context).size.width * 0.83,
+      height: MediaQuery.of(context).size.height * 0.11,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.black, width: 1),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Stack(
+      child: Row(
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.05,
-            height: MediaQuery.of(context).size.height * 0.149,
+            height: MediaQuery.of(context).size.height * 0.147,
             decoration: BoxDecoration(
-                color: Colors.red,
+                color: importance,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(9),
                     bottomLeft: Radius.circular(9))),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'limpar a casa',
+                          style: textTitle,
+                        ),
+                        Text(
+                          '14:00 - 15:00',
+                          style: textTime,
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            'limpar a casadddddd ddddddddddddd dddddddddddddd',
+                            overflow: TextOverflow.ellipsis,
+                            style: textBody,
+                          ),
+                        ),
+                        ValueListenableBuilder(
+                          valueListenable: done,
+                          builder: (context, value, child) {
+                            return Checkbox(
+                              value: done.value,
+                              onChanged: (value) {
+                                done.value = !done.value;
+                              },
+                              activeColor: Colors.green,
+                            );
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
           )
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:task_manager/styles/font.dart';
+import 'package:task_manager/view/morning.view.dart';
 import 'package:task_manager/widgets/card.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Color.fromARGB(255, 163, 33, 238)),
+        decoration: BoxDecoration(color: Color.fromARGB(255, 212, 212, 212)),
         child: Column(
           children: [
             Container(
@@ -201,15 +202,7 @@ class _HomePageState extends State<HomePage> {
               child: PageView(
                 controller: _pageController,
                 children: [
-                  Container(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [CardTask()],
-                      ),
-                    ),
-                  ),
+                  MorningTasks(),
                   Container(
                     color: Color.fromARGB(255, 17, 17, 17),
                   ),
