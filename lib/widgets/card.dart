@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:task_manager/styles/font.dart';
 
+import 'package:sizer/sizer.dart';
+
 class CardTask extends StatefulWidget {
   const CardTask({super.key});
 
@@ -53,7 +55,7 @@ class _CardTaskState extends State<CardTask> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -61,9 +63,13 @@ class _CardTaskState extends State<CardTask> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'limpar a casa',
-                          style: textTitle,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.55,
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            'limpar a casad dsd sadasdsad sdasdasd',
+                            style: textTitle,
+                          ),
                         ),
                         Text(
                           '14:00 - 15:00',

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:sizer/sizer.dart';
 import 'package:task_manager/styles/font.dart';
 import 'package:task_manager/view/morning.view.dart';
+import 'package:task_manager/view/newTask.dart';
 import 'package:task_manager/widgets/card.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,10 +17,50 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ValueNotifier<int> indexPage = ValueNotifier(0);
   PageController _pageController = PageController();
+  final _formKey = GlobalKey<FormState>();
+  ValueNotifier<String> importantState = ValueNotifier<String>('Gato');
+  int code = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  void showModalCreateTask() {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const NewTask()),
+    // );
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (BuildContext context) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 1.h),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.close),
+              ),
+            ),
+            Container(
+                height: 50.h,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                )),
+                child: NewTask()),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -218,6 +260,11 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            showModalCreateTask();
+          }),
     );
   }
 }
